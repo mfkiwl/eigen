@@ -1,3 +1,4 @@
+import { render } from "@testing-library/react-native"
 import { AppStoreProvider } from "lib/store/AppStore"
 import { Theme } from "palette"
 import React from "react"
@@ -33,6 +34,11 @@ export const renderWithWrappers = (component: ReactElement) => {
       throw new Error(error.stack)
     }
   }
+}
+
+export const renderWithWrappers2 = (component: ReactElement) => {
+  const wrappedComponent = componentWithWrappers(component)
+  return render(wrappedComponent)
 }
 
 /**
