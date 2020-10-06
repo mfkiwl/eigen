@@ -52,6 +52,10 @@ export const renderWithWrappers = (component: ReactElement) => {
   }
 }
 
-export const renderWithWrappers2 = (component: ReactElement) => {
+/**
+ * Renders a React Component with our page wrappers
+ * @param component
+ */
+export const renderWithWrappersTL = (component: ReactElement) => {
   return render(component, { wrapper: Wrappers })
 }
