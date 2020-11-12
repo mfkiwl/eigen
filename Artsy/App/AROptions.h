@@ -20,6 +20,7 @@ extern NSString *const AROptionsUseReactNativeWebView;
 extern NSString *const AROptionsNewShowPage;
 extern NSString *const AROptionsNewFairPage;
 extern NSString *const AROptionsShareToInstagram;
+extern NSString *const AROptionsShareToInstagramDeleteAfter;
 
 
 @interface AROptions : NSObject

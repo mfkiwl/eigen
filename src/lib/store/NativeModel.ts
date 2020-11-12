@@ -59,6 +59,7 @@ export interface NativeState {
     AROptionsNewShowPage: boolean
     AROptionsNewFairPage: boolean
     AROptionsShareToInstagram: boolean
+    AROptionsShareToInstagramDeleteAfter: boolean
   }
   legacyFairSlugs: string[]
   legacyFairProfileSlugs: string[]

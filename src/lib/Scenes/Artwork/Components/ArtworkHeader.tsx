@@ -20,6 +20,7 @@ export const ArtworkHeader: React.FC<ArtworkHeaderProps> = (props) => {
   const { artwork } = props
   const screenDimensions = useScreenDimensions()
   const emissionShareToInstagram = useEmissionOption("AROptionsShareToInstagram")
+  const emissionShareToInstagramDeleteAfter = useEmissionOption("AROptionsShareToInstagramDeleteAfter")
   const [canOpen, setCanOpen] = useState<boolean | null>(null)
   const showShareToInstagram = emissionShareToInstagram && canOpen
 
@@ -48,8 +49,10 @@ export const ArtworkHeader: React.FC<ArtworkHeaderProps> = (props) => {
         })
       ).edges[0].node.image.uri
 
-      // set up an action to delete the image next time the app is in the foreground
-      AppStore.actions.onAppActiveDispatchActions.deleteAtUri(lastUri)
+      if (emissionShareToInstagramDeleteAfter) {
+        // set up an action to delete the image next time the app is in the foreground
+        AppStore.actions.onAppActiveDispatchActions.deleteAtUri(lastUri)
+      }
 
       const response = await Share.shareSingle({
         social: Share.Social.INSTAGRAM,

@@ -18,6 +18,7 @@ NSString *const AROptionsNewFirstInquiry = @"AROptionsNewFirstInquiry";
 NSString *const AROptionsNewShowPage = @"AROptionsNewShowPage";
 NSString *const AROptionsNewFairPage = @"AROptionsNewFairPage";
 NSString *const AROptionsShareToInstagram = @"AROptionsShareToInstagram";
+NSString *const AROptionsShareToInstagramDeleteAfter = @"AROptionsShareToInstagramDeleteAfter";
 
 // UX changes
 NSString *const AROptionsDisableNativeLiveAuctions = @"AROptionsDisableNativeLiveAuctions";
@@ -50,6 +51,7 @@ NSString *const AROptionsUseReactNativeWebView = @"AROptionsUseReactNativeWebVie
          AROptionsNewFirstInquiry: @"Enable new first inquiry flow",
          AROptionsUseReactNativeWebView: @"Use react native webviews",
          AROptionsShareToInstagram: @"Enable Share on Instagram",
+		 AROptionsShareToInstagramDeleteAfter: @"Delete after share on Instagram",
         };
     });
 }

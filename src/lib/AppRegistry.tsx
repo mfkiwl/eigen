@@ -471,7 +471,7 @@ const useOnAppActiveDispatchActions = () => {
 
   const dispatchActions = useCallback(() => {
     const doIt = async () => {
-      // CameraRoll.deletePhotos(urisToDelete)
+      CameraRoll.deletePhotos(urisToDelete)
       AppStore.actions.onAppActiveDispatchActions.clearUris()
     }
     doIt()

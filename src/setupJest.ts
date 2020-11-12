@@ -167,6 +167,7 @@ function getNativeModules(): typeof NativeModules {
           AROptionsNewShowPage: false,
           AROptionsNewFairPage: false,
           AROptionsShareToInstagram: false,
+          AROptionsShareToInstagramDeleteAfter: false,
         },
         legacyFairSlugs: ["some-fairs-slug", "some-other-fair-slug"],
         legacyFairProfileSlugs: [],
