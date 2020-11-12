@@ -83,7 +83,7 @@ export const ArtworkHeader: React.FC<ArtworkHeaderProps> = (props) => {
           <Button
             size="small"
             onPress={() => {
-              const url = (artwork.images ?? [])[currentImageIndex]?.url ?? "".replace(":version", "large") ?? null
+              const url = ((artwork.images ?? [])[currentImageIndex]?.url ?? "").replace(":version", "large")
               shareOnInstagram(url)
             }}
           >
