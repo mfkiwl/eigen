@@ -5,6 +5,7 @@ import { SearchModel } from "lib/Scenes/Search/SearchModel"
 import { NativeModules } from "react-native"
 import { CURRENT_APP_VERSION } from "./migration"
 import { NativeModel } from "./NativeModel"
+import { OnAppActiveDispatchActionsModel } from "./OnAppActiveDispatchActionsModel"
 import { assignDeep } from "./persistence"
 
 interface AppStoreStateModel {
@@ -18,6 +19,7 @@ interface AppStoreStateModel {
   bottomTabs: BottomTabsModel
   search: SearchModel
   myCollection: MyCollectionModel
+  onAppActiveDispatchActions:  OnAppActiveDispatchActionsModel
 }
 export interface AppStoreModel extends AppStoreStateModel {
   rehydrate: Action<AppStoreModel, DeepPartial<State<AppStoreStateModel>>>
@@ -59,6 +61,7 @@ export const appStoreModel: AppStoreModel = {
   bottomTabs: BottomTabsModel,
   search: SearchModel,
   myCollection: MyCollectionModel,
+  onAppActiveDispatchActions: OnAppActiveDispatchActionsModel,
 }
 
 export type AppStoreState = State<AppStoreModel>
