@@ -2,7 +2,7 @@ import CameraRoll from "@react-native-community/cameraroll"
 import { ArtworkHeader_artwork } from "__generated__/ArtworkHeader_artwork.graphql"
 import { AppStore, useEmissionOption } from "lib/store/AppStore"
 import { useScreenDimensions } from "lib/utils/useScreenDimensions"
-import { Box, Button, Flex, Spacer, Text } from "palette"
+import { Box, Button, Flex, Spacer } from "palette"
 import React, { useEffect, useState } from "react"
 import { Linking } from "react-native"
 import Share from "react-native-share"
@@ -23,6 +23,7 @@ export const ArtworkHeader: React.FC<ArtworkHeaderProps> = (props) => {
   const emissionShareToInstagramDeleteAfter = useEmissionOption("AROptionsShareToInstagramDeleteAfter")
   const [canOpen, setCanOpen] = useState<boolean | null>(null)
   const showShareToInstagram = emissionShareToInstagram && canOpen
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
   useEffect(() => {
     const checkCanOpen = async () => {
@@ -40,7 +41,7 @@ export const ArtworkHeader: React.FC<ArtworkHeaderProps> = (props) => {
         appendExt: "igo",
       }).fetch("GET", url)
 
-      const savedToCameraRoll = await CameraRoll.saveToCameraRoll(tempBlob.path())
+      await CameraRoll.saveToCameraRoll(tempBlob.path())
 
       const lastUri = (
         await CameraRoll.getPhotos({
@@ -54,7 +55,7 @@ export const ArtworkHeader: React.FC<ArtworkHeaderProps> = (props) => {
         AppStore.actions.onAppActiveDispatchActions.deleteAtUri(lastUri)
       }
 
-      const response = await Share.shareSingle({
+      await Share.shareSingle({
         social: Share.Social.INSTAGRAM,
         url: lastUri,
       })
@@ -71,16 +72,17 @@ export const ArtworkHeader: React.FC<ArtworkHeaderProps> = (props) => {
       <ImageCarouselFragmentContainer
         images={artwork.images as any /* STRICTNESS_MIGRATION */}
         cardHeight={screenDimensions.width >= 375 ? 340 : 290}
+        onImageIndexChange={(imageIndex) => setCurrentImageIndex(imageIndex)}
       />
       <Flex alignItems="center" mt={2}>
         <ArtworkActions artwork={artwork} />
       </Flex>
-      {!!showShareToInstagram && (
+      {showShareToInstagram === true && (
         <Flex alignItems="center" mt={2}>
           <Button
             size="small"
             onPress={() => {
-              const url = artwork.images[0].url.replace(":version", "large")
+              const url = (artwork.images ?? [])[currentImageIndex]?.url ?? "".replace(":version", "large") ?? null
               shareOnInstagram(url)
             }}
           >

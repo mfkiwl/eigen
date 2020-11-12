@@ -45,7 +45,13 @@ export interface ImageCarouselContext {
   dispatch(action: ImageCarouselAction): void
 }
 
-export function useNewImageCarouselContext({ images }: { images: ImageDescriptor[] }): ImageCarouselContext {
+export function useNewImageCarouselContext({
+  images,
+  onImageIndexChange,
+}: {
+  images: ImageDescriptor[]
+  onImageIndexChange?: (imageIndex: number) => void
+}): ImageCarouselContext {
   const embeddedImageRefs = useMemo(() => [], [])
   const embeddedFlatListRef = useRef<FlatList<any>>()
   const [imageIndex, setImageIndex] = useGlobalState(0)
@@ -80,6 +86,8 @@ export function useNewImageCarouselContext({ images }: { images: ImageDescriptor
                 // @ts-ignore STRICTNESS_MIGRATION
                 embeddedFlatListRef.current.scrollToIndex({ index: action.nextImageIndex, animated: false })
               }
+              // tslint:disable-next-line: no-unused-expression
+              onImageIndexChange && onImageIndexChange(imageIndex.current)
             }
             break
           case "FULL_SCREEN_DISMISSED":
