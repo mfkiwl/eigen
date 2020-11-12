@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
-/* @relayHash d41f5ff2d2350ace6165204f3dc5e15e */
+/* @relayHash 2520cd1d2811c77d75184642dcfa2ce9 */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -92,6 +92,8 @@ fragment ArtworkHeader_artwork on Artwork {
   ...ArtworkTombstone_artwork
   images {
     ...ImageCarousel_images
+    url: imageURL
+    imageVersions
   }
 }
 
@@ -1349,7 +1351,7 @@ return {
     ]
   },
   "params": {
-    "id": "d41f5ff2d2350ace6165204f3dc5e15e",
+    "id": "2520cd1d2811c77d75184642dcfa2ce9",
     "metadata": {},
     "name": "ArtworkAboveTheFoldQuery",
     "operationKind": "query",

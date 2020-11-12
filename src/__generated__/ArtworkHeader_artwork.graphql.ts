@@ -6,6 +6,8 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type ArtworkHeader_artwork = {
     readonly images: ReadonlyArray<{
+        readonly url: string | null;
+        readonly imageVersions: ReadonlyArray<string | null> | null;
         readonly " $fragmentRefs": FragmentRefs<"ImageCarousel_images">;
     } | null> | null;
     readonly " $fragmentRefs": FragmentRefs<"ArtworkActions_artwork" | "ArtworkTombstone_artwork">;
@@ -34,6 +36,20 @@ const node: ReaderFragment = {
       "plural": true,
       "selections": [
         {
+          "alias": "url",
+          "args": null,
+          "kind": "ScalarField",
+          "name": "imageURL",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "imageVersions",
+          "storageKey": null
+        },
+        {
           "args": null,
           "kind": "FragmentSpread",
           "name": "ImageCarousel_images"
@@ -55,5 +71,5 @@ const node: ReaderFragment = {
   "type": "Artwork",
   "abstractKey": null
 };
-(node as any).hash = 'ab997ece8f9a2923fa7f484708ba9d65';
+(node as any).hash = 'dd23167682fc5fadd28f3f52047c1a4e';
 export default node;
