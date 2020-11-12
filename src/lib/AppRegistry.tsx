@@ -1,5 +1,4 @@
 import { defaultEnvironment } from "lib/relay/createEnvironment"
-import _ from "lodash"
 import React, { useCallback, useEffect } from "react"
 import { AppRegistry, View, YellowBox } from "react-native"
 import { RelayEnvironmentProvider } from "relay-hooks"
@@ -81,7 +80,7 @@ import { ShowQueryRenderer } from "./Scenes/Show/Show"
 import { Show2MoreInfoQueryRenderer, Show2QueryRenderer } from "./Scenes/Show2"
 import { VanityURLEntityRenderer } from "./Scenes/VanityURL/VanityURLEntity"
 
-import RNFetchBlob from "rn-fetch-blob"
+import CameraRoll from "@react-native-community/cameraroll"
 import { BottomTabsNavigator } from "./Scenes/BottomTabs/BottomTabsNavigator"
 import { BottomTabType } from "./Scenes/BottomTabs/BottomTabType"
 import { ViewingRoomQueryRenderer } from "./Scenes/ViewingRoom/ViewingRoom"
@@ -468,39 +467,15 @@ for (const moduleName of Object.keys(modules)) {
 }
 
 const useOnAppActiveDispatchActions = () => {
-  const pathsToDelete = AppStore.useAppState((state) => state.onAppActiveDispatchActions.pathsToDelete)
+  const urisToDelete = AppStore.useAppState((state) => state.onAppActiveDispatchActions.urisToDelete)
 
   const dispatchActions = useCallback(() => {
     const doIt = async () => {
-      console.log(`IM IN FGGGGGGGGGGG ${pathsToDelete}`)
-
-      const count = pathsToDelete.length
-
-      const MAX_TRIES = 3
-      const tries = _.fill(Array(count), 0)
-      await _.range(count).map(async (index) => {
-        // if we have tried to delete a bunch of times and it doesn't work, let's just skip it
-        if (tries[index] > MAX_TRIES) {
-          return
-        }
-
-        // try to delete
-        await RNFetchBlob.fs.unlink(pathsToDelete[index])
-        console.log("IM IN DELETEING")
-        tries[index] = -1
-      })
-      // delete all paths with too many tries and all paths that were deleted
-      const indexes: number[] = []
-      _.range(count).map((index) => {
-        if (tries[index] === -1 || tries[index] >= MAX_TRIES) {
-          indexes.push(index)
-        }
-      })
-      AppStore.actions.onAppActiveDispatchActions.clearPathsAtIndexes(indexes)
-      console.log(`IM IN FGGGGGGGGGGG DON ${indexes}`)
+      // CameraRoll.deletePhotos(urisToDelete)
+      AppStore.actions.onAppActiveDispatchActions.clearUris()
     }
     doIt()
-  }, [pathsToDelete])
+  }, [urisToDelete])
 
   // for when the app starts
   useEffect(dispatchActions, [])

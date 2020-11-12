@@ -1,20 +1,19 @@
 import { Action, action } from "easy-peasy"
-import { pullAt } from "lodash"
 
 export interface OnAppActiveDispatchActionsModel {
-  pathsToDelete: string[]
+  urisToDelete: string[]
 
-  deleteAtPath: Action<OnAppActiveDispatchActionsModel, string>
-  clearPathsAtIndexes: Action<OnAppActiveDispatchActionsModel, number[]>
+  deleteAtUri: Action<OnAppActiveDispatchActionsModel, string>
+  clearUris: Action<OnAppActiveDispatchActionsModel, void>
 }
 
 export const OnAppActiveDispatchActionsModel: OnAppActiveDispatchActionsModel = {
-  pathsToDelete: [],
+  urisToDelete: [],
 
-  deleteAtPath: action((state, path) => {
-    state.pathsToDelete.push(path)
+  deleteAtUri: action((state, path) => {
+    state.urisToDelete.push(path)
   }),
-  clearPathsAtIndexes: action((state, indexes) => {
-    pullAt(state.pathsToDelete, indexes)
+  clearUris: action((state) => {
+    state.urisToDelete = []
   }),
 }

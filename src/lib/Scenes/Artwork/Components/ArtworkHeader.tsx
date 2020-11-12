@@ -1,7 +1,7 @@
+import CameraRoll from "@react-native-community/cameraroll"
 import { ArtworkHeader_artwork } from "__generated__/ArtworkHeader_artwork.graphql"
 import { AppStore, useEmissionOption } from "lib/store/AppStore"
 import { useScreenDimensions } from "lib/utils/useScreenDimensions"
-import { last } from "lodash"
 import { Box, Button, Flex, Spacer, Text } from "palette"
 import React, { useEffect, useState } from "react"
 import { Linking } from "react-native"
@@ -32,29 +32,34 @@ export const ArtworkHeader: React.FC<ArtworkHeaderProps> = (props) => {
     }
   }, [])
 
-  const shareOnInstagram = (url: string) => {
-    let imagePath: string | null = null
+  const shareOnInstagram = async (url: string) => {
+    try {
+      const tempBlob = await RNFetchBlob.config({
+        fileCache: true,
+        appendExt: "igo",
+      }).fetch("GET", url)
 
-    RNFetchBlob.config({ fileCache: true, appendExt: last(url.split(".")) })
-      .fetch("GET", url)
-      .then((resp) => {
-        imagePath = resp.path()
-        console.log({ imagePath })
-        return resp.readFile("base64")
+      const savedToCameraRoll = await CameraRoll.saveToCameraRoll(tempBlob.path())
+
+      const lastUri = (
+        await CameraRoll.getPhotos({
+          first: 1,
+          assetType: "All",
+        })
+      ).edges[0].node.image.uri
+
+      // set up an action to delete the image next time the app is in the foreground
+      AppStore.actions.onAppActiveDispatchActions.deleteAtUri(lastUri)
+
+      const response = await Share.shareSingle({
+        social: Share.Social.INSTAGRAM,
+        url: lastUri,
       })
-      .then((base64dataRaw) => {
-        const base64data = `data:image/jpg;base64,${base64dataRaw}`
-        console.log({ url })
-        console.log({ base64data })
 
-        // set up an action to delete the image next time the app is in the foreground
-        AppStore.actions.onAppActiveDispatchActions.deleteAtPath(imagePath!)
-
-        // Share.shareSingle({
-        // social: Share.Social.INSTAGRAM,
-        // url: base64data,
-        // })
-      })
+      tempBlob.flush()
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
