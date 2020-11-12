@@ -5,6 +5,7 @@ import { useScreenDimensions } from "lib/utils/useScreenDimensions"
 import { Box, Button, Flex, Spacer } from "palette"
 import React, { useEffect, useState } from "react"
 import { Linking } from "react-native"
+// @ts-ignore
 import Share from "react-native-share"
 import { createFragmentContainer, graphql } from "react-relay"
 import RNFetchBlob from "rn-fetch-blob"
