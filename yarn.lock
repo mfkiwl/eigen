@@ -12,6 +12,11 @@
   resolved "https://registry.yarnpkg.com/@artsy/cohesion/-/cohesion-1.53.0.tgz#bae743a831b2475215c01605995a6ba4cea267c7"
   integrity sha512-qWVwLQPtrODSOdNoR+KEiy2hagOlFzOab0aVS4J1SPFGLq5l5QerpQkaJWtJIWbPssa4EMMuToKwSrgyjEogRQ==
 
+"@artsy/palette-tokens@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@artsy/palette-tokens/-/palette-tokens-1.0.0.tgz#4355fe489e8627226e3ece401c85b2aad021623e"
+  integrity sha512-M7zot7fhmXWFL3CHT5qzlXu14nMZ8/xwt7j3G6izv66Y9r6AbII5rcpL+6cqfx16z9L9GZdKmU1d1/xB47qUdg==
+
 "@artsy/update-repo@0.2.0":
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/@artsy/update-repo/-/update-repo-0.2.0.tgz#c978d475fa4e2e1be0cc40fe57a7581f0d8f690b"
