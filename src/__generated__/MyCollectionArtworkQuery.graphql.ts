@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
-/* @relayHash 01eb3dfb3f30d65bbb348e58f9bb7dec */
+/* @relayHash 5b040afc67b5edae0bfecca54074d6b7 */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -164,6 +164,12 @@ fragment MyCollectionArtworkHeader_artwork on Artwork {
 }
 
 fragment MyCollectionArtworkInsights_artwork on Artwork {
+  sizeBucket
+  medium
+  artist {
+    name
+    id
+  }
   ...MyCollectionArtworkPriceEstimate_artwork
   ...MyCollectionArtworkArtistAuctionResults_artwork
   ...MyCollectionArtworkArtistArticles_artwork
@@ -195,12 +201,22 @@ fragment MyCollectionArtworkMeta_artwork on Artwork {
 fragment MyCollectionArtworkPriceEstimate_artwork on Artwork {
   costCurrencyCode
   costMinor
+  sizeBucket
 }
 
 fragment MyCollectionArtworkPriceEstimate_marketPriceInsights on MarketPriceInsights {
-  lowRangeCents
-  midRangeCents
   highRangeCents
+  largeHighRangeCents
+  largeLowRangeCents
+  largeMidRangeCents
+  lowRangeCents
+  mediumHighRangeCents
+  mediumLowRangeCents
+  mediumMidRangeCents
+  midRangeCents
+  smallHighRangeCents
+  smallLowRangeCents
+  smallMidRangeCents
   artsyQInventory
 }
 */
@@ -372,6 +388,13 @@ v22 = [
   }
 ],
 v23 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+},
+v24 = {
   "kind": "Literal",
   "name": "first",
   "value": 3
@@ -490,11 +513,12 @@ return {
             "selections": [
               (v4/*: any*/),
               (v14/*: any*/),
+              (v23/*: any*/),
               (v19/*: any*/),
               {
                 "alias": null,
                 "args": [
-                  (v23/*: any*/),
+                  (v24/*: any*/),
                   {
                     "kind": "Literal",
                     "name": "sort",
@@ -611,7 +635,7 @@ return {
               {
                 "alias": null,
                 "args": [
-                  (v23/*: any*/),
+                  (v24/*: any*/),
                   {
                     "kind": "Literal",
                     "name": "inEditorialFeed",
@@ -668,13 +692,7 @@ return {
                             "name": "author",
                             "plural": false,
                             "selections": [
-                              {
-                                "alias": null,
-                                "args": null,
-                                "kind": "ScalarField",
-                                "name": "name",
-                                "storageKey": null
-                              },
+                              (v23/*: any*/),
                               (v14/*: any*/)
                             ],
                             "storageKey": null
@@ -731,7 +749,14 @@ return {
           (v18/*: any*/),
           (v19/*: any*/),
           (v20/*: any*/),
-          (v21/*: any*/)
+          (v21/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "sizeBucket",
+            "storageKey": null
+          }
         ],
         "storageKey": null
       },
@@ -754,7 +779,56 @@ return {
             "alias": null,
             "args": null,
             "kind": "ScalarField",
+            "name": "highRangeCents",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "largeHighRangeCents",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "largeLowRangeCents",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "largeMidRangeCents",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "lowRangeCents",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "mediumHighRangeCents",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "mediumLowRangeCents",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "mediumMidRangeCents",
             "storageKey": null
           },
           {
@@ -768,7 +842,21 @@ return {
             "alias": null,
             "args": null,
             "kind": "ScalarField",
-            "name": "highRangeCents",
+            "name": "smallHighRangeCents",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "smallLowRangeCents",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "smallMidRangeCents",
             "storageKey": null
           },
           {
@@ -826,7 +914,7 @@ return {
     ]
   },
   "params": {
-    "id": "01eb3dfb3f30d65bbb348e58f9bb7dec",
+    "id": "5b040afc67b5edae0bfecca54074d6b7",
     "metadata": {},
     "name": "MyCollectionArtworkQuery",
     "operationKind": "query",
